@@ -1,7 +1,10 @@
-__pycache__/
+*.log
 *.pyc
+.env
+.env.*
 .pytest_cache/
 .venv/
-node_modules/
+__pycache__/
+dist/*.tmp
 mock_history.txt
-*.log
+node_modules/
