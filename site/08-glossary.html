@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch. 8 — Glossary — Interview Panel Question Bank Guide</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <a class="brand" href="index.html">Interview Panel Question Bank Guide</a>
+  <div class="chapters">
+    <a href="00-introduction.html">How to Use This Workbook</a>
+    <a href="01-bank-early-career.html">Early-Career</a>
+    <a href="02-bank-healthcare.html">Healthcare</a>
+    <a href="03-bank-small-business.html">Small-Business</a>
+    <a href="04-worksheets-calm-answers.html">Calm-Answer Worksheets</a>
+    <a href="05-fairness-notes.html">Fairness Notes</a>
+    <a href="06-ai-mock-sessions.html">AI Mock Sessions</a>
+    <a href="07-score-sheets.html">Score-Sheet Templates</a>
+    <a href="08-glossary.html">Glossary</a>
+  </div>
+</nav>
+<main class="chapter">
+<article>
+<h1 id="s-chapter-8-glossary">Chapter 8 — Glossary</h1>
+<p>Plain-English definitions, Dylan-style: like a friend would explain it, step by step, never condescending.</p>
+<ul><li><strong>OpenAI-compatible API</strong> — a web service that speaks the same request format as OpenAI's chat API, whether or not OpenAI runs it. Lets one small tool (like the mock-session script here) talk to Ollama, LM Studio, vLLM, or a cloud provider without code changes.</li><li><strong>Base URL</strong> — the address of the model server, e.g. <code>http://localhost:11434/v1</code> for Ollama. The only config this tool needs besides a model name.</li><li><strong>Behavioral question</strong> — an interview question about a <em>past</em> behavior ("Tell me about a time…"), on the theory that past behavior predicts future behavior better than hypotheticals do.</li><li><strong>Banked question</strong> — a question written down, tested, and reused for every candidate in a pool, so comparison is possible. The core idea of this workbook.</li><li><strong>Calm answer</strong> — this workbook's term for a short, specific answer that stops early: one true sentence, one detail, one action, one ending. See Chapter 4.</li><li><strong>Instruct-tuned model</strong> — a language model trained to follow one instruction at a time and answer back politely, as opposed to a raw next-word predictor. You need an instruct-tuned model for mock interviews.</li><li><strong>Inter-rater reliability</strong> — the degree to which two scorers agree on the same answer. Low agreement means your anchors (not necessarily your panelists) need work.</li><li><strong>Interview panel</strong> — two or more people interviewing together, usually scoring independently on the same sheet. The independent-scoring part is what makes it useful.</li><li><strong>Job-relevant</strong> — the fairness test: a question measures a task, a judgment, or a behavior that the <em>posted job</em> actually requires.</li><li><strong>Listen-for</strong> — the thing an interviewer is actually watching for inside an answer (a specific example, an escalation step, an owned mistake). Every bank question in this workbook has one written down.</li><li><strong>Local model</strong> — a language model running on your own machine, e.g. via Ollama or LM Studio. No API key, no network dependency, nothing leaves your disk.</li><li><strong>Ollama</strong> — free software that downloads and serves local models on your own computer behind an OpenAI-compatible endpoint (default <code>http://localhost:11434/v1</code>). See <code>ollama pull llama3.1</code>.</li><li><strong>OpenAI-compatible endpoint</strong> — any HTTP endpoint that accepts <code>/v1/chat/completions</code> requests in the OpenAI request/response JSON shape, local or remote.</li><li><strong>Prompt</strong> — the text you send to a model to get a response. In the mock-session tool, a system prompt holds the interviewer's character and the bank's tone, and the history is re-sent each round.</li><li><strong>Question bank</strong> — a curated list of questions with notes on why to ask and what to listen for. What Chapters 1–3 are.</li><li><strong>Red flag (interviewer side)</strong> — an answer detail that predicts trouble, e.g. "fixed the mistake without reporting it." Distinguish from <em>weak</em> answers, which are fixable with practice.</li><li><strong>Redirection (candidate side)</strong> — a calm one-liner that steers back to job-relevant ground when a question is unfair or off-limits. See Worksheet D.</li><li><strong>Rubric</strong> — the anchored scale: what a 2 looks like, what a 4 looks like, written down before the interviews start.</li><li><strong>STAR answer (soft version)</strong> — the classic Situation / Task / Action / Result structure. This workbook deliberately softens it into the calm shape (scene, detail, action, ending, stop) so it doesn't read like a memorized form.</li><li><strong>Structured interview</strong> — an interview where everyone gets the same questions and scores land on the same sheet. For twenty years of research summarized in two words: it predicts better and it's fairer.</li><li><strong>System prompt</strong> — the standing instructions a model receives before any conversation starts; in this project, the interviewer's persona and rules ("ask one question, wait, never grade").</li><li><strong>Context window</strong> — the maximum amount of text a model can consider at once. Long transcripts overflow small local models; that's why the debrief summarizes instead of quoting everything.</li></ul>
+</article>
+<div class="pager"><a href="07-score-sheets.html">&larr; Ch. 7 — Score-Sheet Templates</a> <span></span></div>
+</main>
+<footer>
+  <p>Interview Panel Question Bank Guide — Banked-and-reusable interview questions, for both sides of the table</p>
+  <p>Copyright (c) 2026 Asdale Dynamics, LLC · MIT License · Local-first, no
+  API keys, no cloud requirement.</p>
+</footer>
+</body>
+</html>

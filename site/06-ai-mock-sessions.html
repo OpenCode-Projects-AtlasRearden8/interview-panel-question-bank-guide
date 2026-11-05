@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch. 6 — AI Mock Sessions — Interview Panel Question Bank Guide</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <a class="brand" href="index.html">Interview Panel Question Bank Guide</a>
+  <div class="chapters">
+    <a href="00-introduction.html">How to Use This Workbook</a>
+    <a href="01-bank-early-career.html">Early-Career</a>
+    <a href="02-bank-healthcare.html">Healthcare</a>
+    <a href="03-bank-small-business.html">Small-Business</a>
+    <a href="04-worksheets-calm-answers.html">Calm-Answer Worksheets</a>
+    <a href="05-fairness-notes.html">Fairness Notes</a>
+    <a href="06-ai-mock-sessions.html">AI Mock Sessions</a>
+    <a href="07-score-sheets.html">Score-Sheet Templates</a>
+    <a href="08-glossary.html">Glossary</a>
+  </div>
+</nav>
+<main class="chapter">
+<article>
+<h1 id="s-chapter-6-ai-mock-sessions">Chapter 6 — AI Mock Sessions</h1>
+<p>This is the chapter where you get to fail interviews in private, with an audience of one machine. No mistypings in front of a panel. No shaking hands. The interviewer never gets tired and never holds a grudge, because it isn't a person — it is a local AI model you (optionally) run on your own computer, and <strong>nobody outside the room sees anything</strong>, because <em>no API key is required and nothing has to leave your machine</em>.</p>
+<h2 id="s-why-no-api-key-is-a-feature-not-a-limitation">Why "no API key" is a feature, not a limitation</h2>
+<ul><li>A key is a <em>credential that can leak</em>. Without one, there's nothing to leak — not an accidentally committed <code>.env</code>, not a secret in a screenshot.</li><li>A cloud call is a <em>copy of your words on someone else's server</em>. A local call is a copy on your own disk that you can delete.</li><li>Ollama, LM Studio, llama.cpp server, and vLLM all speak the same <strong>OpenAI-compatible</strong> REST dialect; the mock-session tool in this directory works with any of them. Change the base URL, done.</li></ul>
+<blockquote><p>You <em>may</em> run against a paid cloud endpoint if your employer set one up and policy allows. If you do, never paste candidate names, real interview notes, or anything you'd be embarrassed to see forwarded. The default configuration here is <strong>local or nothing</strong>.</p></blockquote>
+<h2 id="s-chapter-overview">Chapter overview</h2>
+<p>Practice interviews work as a <strong>loop</strong> (door → warm-up → rounds → debrief → practice), scripted in <code>scripts/mock_session.py</code> with a bank and session state that survives a restart.</p>
+<h2 id="s-setup-in-three-minutes">Setup in three minutes</h2>
+<ol><li>Install and start a local model server. With Ollama, the whole</li></ol>
+<p>installation is: <code>ollama pull llama3.1</code> (or any instruct-tuned model), then <code>ollama serve</code>. That's it — no key file, no account. If the command <code>ollama list</code> shows your model, step 2 will see it too.</p>
+<ol><li>From the project folder, run:</li></ol>
+<pre><code>   python3 scripts/mock_session.py --list-models</code></pre>
+<p>You should see your pulled model's ID, e.g. <code>llama3.1</code>. (Using LM Studio? Tick "Enable local server," then run the same command — the tool accepts any base URL whose <code>/v1/models</code> answers.)</p>
+<ol><li>Start a practice session:</li></ol>
+<pre><code>   python3 scripts/mock_session.py --model llama3.1 --bank early-career</code></pre>
+<p>Other banks: <code>healthcare</code>, <code>small-business</code>, or <code>runthrough</code> (a mix). Add <code>--rounds 4</code> (default 5), <code>--base-url http://localhost:11434/v1</code> if you are not on the default port, and <code>--candidate "&lt;your name or persona&gt;"</code> when you want the debrief to address a role, e.g. the RN persona from Chapter 2 on the healthcare bank.</p>
+<h2 id="s-the-session-line-by-line">The session, line by line</h2>
+<p>The tool runs a <strong>written interview</strong>. The AI plays the interviewer, sends you questions one at a time in your terminal, you type answers, and the session ends with a calm three-part debrief. At any prompt you can type:</p>
+<ul><li><code>:help</code> — reminder of this list.</li><li><code>:redo</code> — rewrite your last answer; the tool keeps the better one.</li><li><code>:skip</code> — take the next question now.</li><li><code>:quit</code> — end early. You still get a debrief on what happened so far.</li><li>Anything else — it's your answer; press Enter to send it.</li></ul>
+<h2 id="s-the-debrief">The debrief</h2>
+<p>When the last round is done, the model gets one more prompt: a summary of your answers. It returns three short sections:</p>
+<ol><li><strong>Two things you did that would land with a panel</strong> — keep doing them.</li><li><strong>One thing to practice this week</strong> — one item, not a lecture.</li><li><strong>The question to re-run first</strong> — the model picks the weakest round.</li></ol>
+<p>Save the debrief: copy it into your Chapter 4 worksheet under "calm-close line" or "energy check," whichever needs the edit. The history of your session is kept in <code>mock_history.txt</code> in your working folder — your machine, your file, delete it whenever.</p>
+<h2 id="s-sample-session-shape">Sample session shape</h2>
+<pre><code>$ python3 scripts/mock_session.py --model llama3.1 --bank healthcare
+You'll answer 5 questions. Type your answer, then press Enter.
+[Interviewer] Q. Walk me through your last shift.
+You: 7 to 7, fourteen patie— (typo — fix with :redo)
+[You typed] "7 to 7, fourte..."
+: redo
+You: 7 to 7 on a med-surg unit — bedside report, morning meds batching, one
+admitted mid-shift. The hard part: family questions at 4 p.m. on top of discharge
+paperwork.
+[Interviewer] Q. What would make you quit in the first month?
+You: (your calm answer here)
+--- DEBRIEF ---
+1. You kept both answers to two sentences and named a real person to
+   escalate to on day one — panels remember that.
+2. Practice the mistake story: you narrated the outcome before the notice
+   point. Add what you *noticed*.
+3. Re-run: the mistake question round.</code></pre>
+<h2 id="s-practice-variants">Practice variants</h2>
+<ul><li><strong>The panel-of-two:</strong> run the tool twice with two different banks and answer as if you couldn't see your own first answers. Debriefs disagree? That's a real question-consistency gap: most interviews do this.</li><li><strong>Hire-side drills:</strong> with another person playing the candidate, answer off the hiring-side bank (Chapters 1–3) from the other side of the table. The tool doesn't replace a live panel — it gives you reps. It <strong>never should be</strong> an automated final-decision judge: Chapter 5's fairness rules are for humans; the model is a sparring partner.</li></ul>
+<h2 id="s-troubleshooting">Troubleshooting</h2>
+<table><thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead><tbody><tr><td><code>connection refused</code> on start</td><td>The model server isn't running (<code>ollama serve</code>).</td><td>Start it, re-run <code>--list-models</code>.</td></tr><tr><td><code>No model flagged for chat</code></td><td>Pulled a base (non-instruct) model.</td><td>Pull an instruct model: <code>llama3.1</code>, <code>mistral</code>, <code>qwen2.5:7b</code>.</td></tr><tr><td>Answers are slow but fine</td><td>Large model, small GPU/CPU.</td><td>Pull a smaller quant (<code>llama3.1:8b-q4_K_M</code>).</td></tr><tr><td>Debrief is generic</td><td>Answer rounds were one-line answers.</td><td>Answer with 2–4 sentences; the debrief has more material to hold onto.</td></tr></tbody></table>
+<p>If you're asked for an API key at any point, the tool is misconfigured: the whole design runs <strong>keyless local</strong>. Delete the key, and point the base URL at your local server instead.</p>
+</article>
+<div class="pager"><a href="05-fairness-notes.html">&larr; Ch. 5 — Fairness Notes</a> <a href="07-score-sheets.html">Ch. 7 — Score-Sheet Templates &rarr;</a></div>
+</main>
+<footer>
+  <p>Interview Panel Question Bank Guide — Banked-and-reusable interview questions, for both sides of the table</p>
+  <p>Copyright (c) 2026 Asdale Dynamics, LLC · MIT License · Local-first, no
+  API keys, no cloud requirement.</p>
+</footer>
+</body>
+</html>
